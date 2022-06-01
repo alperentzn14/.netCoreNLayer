@@ -14,6 +14,8 @@ using NLayer.Core.UnitOfWorks;
 using NLayer.Repository;
 using NLayer.Repository.Repositories;
 using NLayer.Repository.UnitOfWorks;
+using NLayer.Service.Mapping;
+using NLayer.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +43,8 @@ namespace NLayer.API
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            //services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddAutoMapper(typeof(MapProfile));
 
             services.AddDbContext<AppDbContext>(
             options => options.UseSqlServer("name=ConnectionStrings:SqlConnection"));
