@@ -45,6 +45,10 @@ namespace NLayer.API
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IService<>), typeof(Service<>));
             services.AddAutoMapper(typeof(MapProfile));
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddDbContext<AppDbContext>(
             options => options.UseSqlServer("name=ConnectionStrings:SqlConnection"));
