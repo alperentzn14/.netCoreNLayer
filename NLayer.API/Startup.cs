@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLayer.API.Filters;
+using NLayer.API.Middlewares;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -74,6 +75,8 @@ namespace NLayer.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCustomExcaption();
 
             app.UseRouting();
 
