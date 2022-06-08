@@ -12,7 +12,7 @@ namespace NLayer.Service.Validations
     {
         public ProductDtoValidator()
         {
-            RuleFor(x => x.Name).NotNull().WithMessage("{PropertyName} is Required ").NotEmpty().WithMessage("{PropertyName} is Required");
+            RuleFor(x => x.Name).NotNull().WithMessage("{PropertyName} is Required ").NotEmpty().WithMessage("{PropertyName} is NotEmpty");
 
             RuleFor(x => x.Price).InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be Greater than 0");
 
