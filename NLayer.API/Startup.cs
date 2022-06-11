@@ -50,6 +50,7 @@ namespace NLayer.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NLayer.API", Version = "v1" });
             });
+            services.AddScoped(typeof(NotFoundFilter<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IService<>), typeof(Service<>));
@@ -63,6 +64,7 @@ namespace NLayer.API
             options => options.UseSqlServer("name=ConnectionStrings:SqlConnection"));
 
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,6 +88,9 @@ namespace NLayer.API
             {
                 endpoints.MapControllers();
             });
+
+        
         }
+      
     }
 }

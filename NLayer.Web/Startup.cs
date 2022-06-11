@@ -1,9 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLayer.API.Filters;
+using NLayer.Core.Repositories;
+using NLayer.Core.Services;
+using NLayer.Core.UnitOfWorks;
+using NLayer.Repository;
+using NLayer.Repository.Repositories;
+using NLayer.Repository.UnitOfWorks;
+using NLayer.Service.Mapping;
+using NLayer.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +34,19 @@ namespace NLayer.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped(typeof(NotFoundFilter<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddAutoMapper(typeof(MapProfile));
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddDbContext<AppDbContext>(
+            options => options.UseSqlServer("name=ConnectionStrings:SqlConnection"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
